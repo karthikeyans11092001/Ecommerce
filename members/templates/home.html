@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{% if title %}
+{{title}}
+{% else %}
+Home
+{% endif %} 
+{% endblock %}
+{% block content %}
+{% csrf_token %}
+{% with form=form title=title %}
+{% include "display.html"  %}
+{% endwith %}
+
+{% endblock %}
+{% block logout %}
+<div class="navbar-nav ml-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+    </li>
+</div>
+{% endblock %}

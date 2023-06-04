@@ -1,0 +1,27 @@
+<h1 class="custom-heading" style="background-color: antiquewhite;color: #010101; font-size: 32px;padding: 20PX 0PX; text-align: center;font-family: sans-serif;border-radius:5px;border:solid rgb(219, 211, 211) 1px;">PRODUCTS</h1>
+<div class="container-fluid" >
+    <div class="row my-4">
+      {% for item in data %}
+      <div class="col-md-4" style="border:solid rgb(219, 211, 211) 1px;padding-top:10px ;">
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <img src="{{ item.image.url }}" alt="{{ item.image.url }}" class="img-fluid" >
+          </div>
+          <div class="col-md-6">
+            <h3>{{ item.name }}</h3>
+            <h4 style="text-decoration: line-through; color: rgb(205, 91, 91);">
+                ₹{{ item.price|add:"50"|floatformat:2 }}/-
+            </h4>            
+            <h2>₹{{item.price}}/-  </h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mb-4">
+            {{ item.image.url }}
+            <p>{{ item.description }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>

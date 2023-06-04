@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+About Us
+{% endblock %}
+{% block content %}
+<div class="blog-post">
+    <div class="container">
+    <h2 class="blog-title">About Our Automobile Spare Parts Store</h2>
+    <p class="blog-meta">Posted on June 2, 2023</p>
+    <img src="{% static 'about_log.jpeg' %}" alt="About Image" class="blog-image"><br><br>
+    <p class="blog-content">
+        At [Your Automobile Spare Parts Store], we are passionate about providing high-quality spare parts for
+        automobiles. With [X] years of experience in the industry, we have become a trusted source for car enthusiasts
+        and mechanics alike.
+    </p>
+    <p class="blog-content">
+        Our extensive inventory includes a wide range of spare parts for various makes and models of vehicles. Whether
+        you need parts for a sedan, SUV, truck, or any other type of vehicle, we have you covered. From engine
+        components to brakes, suspension parts to electrical components, we strive to offer a comprehensive selection to
+        meet the needs of our customers.
+    </p>
+    <p class="blog-content">
+        We understand the importance of quality and reliability when it comes to automobile spare parts. That's why we
+        work with reputable manufacturers and suppliers to ensure that every part we sell meets the highest standards.
+        Our team of experts carefully selects each product to ensure its compatibility, durability, and performance.
+    </p>
+    <p class="blog-content">
+        In addition to our top-notch product offerings, we take pride in delivering exceptional customer service. Our
+        knowledgeable staff is always ready to assist you with any questions or concerns you may have. We strive to
+        provide a seamless shopping experience, from browsing our website to placing an order and receiving your parts
+        in a timely manner.
+    </p>
+    <p class="blog-content">
+        Thank you for choosing [Your Automobile Spare Parts Store]. We are committed to serving you and providing the
+        best quality spare parts for your automotive needs. Feel free to browse our catalog and reach out to us if you
+        need any assistance. We look forward to helping you keep your vehicle in top shape!
+    </p>
+</div>
+</div>
+
+{% endblock %}
+{% block logout %}
+
+<div class="navbar-nav ml-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+    </li>
+</div>
+{% endblock %}
