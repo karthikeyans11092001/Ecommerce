@@ -1,7 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
-from .models import CustomUser,Products
+from .models import CustomUser,Products,Order,OrderItem
 from django.forms.widgets import DateInput
+from django.forms import inlineformset_factory
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
@@ -30,3 +31,10 @@ class ProductsForm(forms.ModelForm):
     class Meta:
         model= Products
         fields='__all__'
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['customer']
+
+OrderItemFormSet = inlineformset_factory(Order, OrderItem, fields=('product', 'quantity'), extra=1)

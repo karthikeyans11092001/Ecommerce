@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+Orders
+{% endblock %}
+{% block content %}
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>Order ID: {{order.0.order_id}}</th>
+            <th><a href="#" class="btn btn-success">Add item</a></th>
+        </tr>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in order %}
+        <tr>
+            <td>{{item.product.name }}</td>
+            <td>{{item.quantity}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td><a href="{% url 'myCart' %}" class="btn btn-info">Back</a></td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
+{% block logout %}
+<div class="navbar-nav ml-auto">
+<li class="nav-item active" >
+<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+</li></div>
+{% endblock %}

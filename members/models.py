@@ -17,4 +17,15 @@ class Products(models.Model):
     image = models.ImageField(upload_to='members/images/')
     def __str__(self):
         return self.name
+class Order(models.Model):
+    order_id=models.AutoField(primary_key=True)
+    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Products, through='OrderItem')
+    def __str__(self):
+        return str(self.order_id)
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
 

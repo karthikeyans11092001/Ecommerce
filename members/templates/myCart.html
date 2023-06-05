@@ -4,6 +4,21 @@ Orders
 {% endblock %}
 {% block content %}
 My Cart🛒
+
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>Orders</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td><a href="{% url 'myCart' order.order_id %}" class="btn btn-info">Order ID: {{order.order_id}}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
 {% block logout %}
 

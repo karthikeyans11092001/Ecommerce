@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import authenticate, login,logout
-from django.views.generic.edit import UpdateView
 from django.contrib import messages
-from .forms import CustomUserCreationForm, CustomerLoginForm,AdminUser,ProductsForm
+from .forms import CustomUserCreationForm, CustomerLoginForm,AdminUser,ProductsForm,OrderForm,OrderItemFormSet
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from .models import Products,CustomUser
+from .models import Products,CustomUser,Order,OrderItem
 from .forms import CustomUserCreationForm
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from .serializers import OrderSerializer
+
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -111,3 +114,31 @@ def UpdateProfile(request,pk):
         'user': user,
     }
     return render(request, 'edit_profile.html', context)
+@login_required
+def place_order(request):
+    if request.method == 'POST':
+        order_form = OrderForm(request.POST)
+        formset = OrderItemFormSet(request.POST, prefix='orderitems')
+
+        if order_form.is_valid() and formset.is_valid():
+            order = order_form.save()
+            formset.instance = order
+            formset.save()
+            return redirect('myCart')  # Redirect to a success page after successful order placement
+
+    else:
+        order_form = OrderForm()
+        formset = OrderItemFormSet(prefix='orderitems')
+
+    return render(request, 'myCart.html', {'order_form': order_form, 'formset': formset})
+@login_required
+def orders_view(request):
+    customer_id=CustomUser.objects.filter(username=request.user.username).first()
+    customer_id = customer_id.id
+    orders = Order.objects.filter(customer_id=customer_id)
+    return render(request, 'myCart.html', {'orders': orders})
+@login_required
+def view_order_products(request,id):
+    order=OrderItem.objects.filter(order_id=id)
+    products=Products.objects.all()
+    return render(request,'my_order.html',{'order': order,'products':products})
